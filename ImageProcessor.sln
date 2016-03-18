@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{3DAFE526-8497-4937-9A82-733A27779279}"
+	ProjectSection(SolutionItems) = preProject
+		.paket\paket.bootstrapper.exe = .paket\paket.bootstrapper.exe
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F8B88FB3-D911-4D00-B222-FA75EE68B8CE}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageProcessorApp", "ImageProcessorApp\ImageProcessorApp.csproj", "{D34ED496-1379-448C-9ED5-771F45FEBB16}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D34ED496-1379-448C-9ED5-771F45FEBB16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D34ED496-1379-448C-9ED5-771F45FEBB16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D34ED496-1379-448C-9ED5-771F45FEBB16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D34ED496-1379-448C-9ED5-771F45FEBB16}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ImageProcessingApp.Image.UserControls.ImageFilterMenuTileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImageProcessingApp"
+             mc:Ignorable="d" 
+             Height="55"
+             Width="175">
+
+    <Border BorderBrush="Black"
+            BorderThickness="0.5"
+            Focusable="False">
+        <Grid Background="{StaticResource ImageFilterMenuTileBackgroundBrush}">
+            <Grid.ToolTip>
+                <TextBlock x:Name="txtDescription"></TextBlock>
+            </Grid.ToolTip>
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0"
+                       x:Name="txtFilterName"
+                       Style="{StaticResource ImageFilterMenuLargeTextStyle}"
+                       Margin="5,0,0,0">_Name</TextBlock>
+
+            <StackPanel Grid.Column="1" 
+                        Orientation="Vertical">
+                <Button x:Name="btnAdd" 
+                        Grid.Row="0"
+                        Style="{StaticResource chromelessImageButton}"
+                        Content="{StaticResource Icons.Plus}"
+                        Width="16"
+                        Height="16" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"
+                        Margin="0,0,0,5"></Button>
+                
+                <Button x:Name="btnHelp" 
+                        Grid.Row="0"
+                        Style="{StaticResource chromelessImageButton}"
+                        Content="{StaticResource Icons.Question}"
+                        Width="16"
+                        Height="16" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"></Button>
+            </StackPanel>
+            
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,33 @@
+NUGET
+  remote: https://www.nuget.org/api/v2
+  specs:
+    NLog (4.2.3)
+    OpenCvSharp3-AnyCPU (3.1.0.20160316)
+    reactiveui (6.5.0)
+      reactiveui-core (6.5.0)
+    reactiveui-core (6.5.0)
+      Rx-Main (>= 2.2.5)
+      Rx-WinRT (>= 2.2.5) - framework: portable-win81+wpa81, winv4.5, wpv8.0
+      Rx-Xaml (>= 2.2.5) - framework: >= net45, portable-win81+wpa81, winv4.5, wpv8.0
+      Splat (>= 1.0 < 2.0)
+    reactiveui-events (6.5.0)
+      Rx-Main (>= 2.2.5)
+    Rx-Core (2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+    Rx-Interfaces (2.2.5)
+    Rx-Linq (2.2.5)
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+    Rx-Main (2.2.5)
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+      Rx-Linq (>= 2.2.5)
+      Rx-PlatformServices (>= 2.2.5)
+    Rx-PlatformServices (2.2.5)
+      Rx-Core (>= 2.2.5)
+      Rx-Interfaces (>= 2.2.5)
+    Rx-WinRT (2.2.5) - framework: portable-win81+wpa81, winv4.5, wpv8.0
+      Rx-Main (>= 2.2.5)
+    Rx-Xaml (2.2.5) - framework: >= net45, portable-win81+wpa81, winv4.5, wpv8.0
+      Rx-Main (>= 2.2.5)
+    Splat (1.6.2)

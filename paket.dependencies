@@ -1,0 +1,6 @@
+source https://www.nuget.org/api/v2
+
+nuget OpenCvSharp3-AnyCPU
+nuget reactiveui
+nuget reactiveui-events
+nuget NLog

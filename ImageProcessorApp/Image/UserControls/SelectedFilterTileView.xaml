@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="ImageProcessingApp.Image.UserControls.SelectedFilterTileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ImageProcessingApp"
+             xmlns:rui="clr-namespace:ReactiveUI;assembly=ReactiveUI"
+             mc:Ignorable="d" 
+             
+             Width="175">
+    <Border BorderBrush="Black"
+            BorderThickness="0.5"
+            Focusable="False">
+        <Grid Background="{StaticResource ImageFilterSelectionTileBackgroundBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       x:Name="txtFilterName"
+                       Style="{StaticResource ImageFilterSelectionLargeTextStyle}"
+                       Margin="5,0,0,0">_Name</TextBlock>
+
+            <StackPanel Grid.Column="1" 
+                        Orientation="Vertical">
+                <Button x:Name="btnDelete" 
+                        Grid.Row="0"
+                        Style="{StaticResource chromelessImageButton}"
+                        Content="{StaticResource Icons.Minus}"
+                        Width="16"
+                        Height="16" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"
+                        Margin="0,0,0,2"></Button>
+
+                <Button x:Name="btnMoveUp" 
+                        Grid.Row="0"
+                        Style="{StaticResource chromelessImageButton}"
+                        Content="{StaticResource Icons.ArrowUp}"
+                        Width="16"
+                        Height="16" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"
+                        Margin="0,0,0,2"></Button>
+
+                <Button x:Name="btnMoveDown" 
+                        Grid.Row="0"
+                        Style="{StaticResource chromelessImageButton}"
+                        Content="{StaticResource Icons.ArrowDown}"
+                        Width="16"
+                        Height="16" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top"></Button>
+            </StackPanel>
+
+            <ListView x:Name="lstFilterParameters"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      Grid.Row="1"
+                      Background="Transparent"
+                      BorderThickness="0" Height="Auto">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <rui:ViewModelViewHost ViewModel="{Binding}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+        </Grid>
+    </Border>
+</UserControl>
