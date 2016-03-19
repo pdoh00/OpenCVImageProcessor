@@ -14,7 +14,7 @@ namespace ImageProcessingApp.Image.Filters
         Dictionary<string, ImageFilterParam> _params = new Dictionary<string, ImageFilterParam>();
 
         public GaussImageFilter() :
-            this(new ImageFilterParam("KernalSize", 3.0, 21.0, 2.0, 3.0),
+            this(new ImageFilterParam("KernalSize", 3.0, 101.0, 2.0, 3.0),
                  new ImageFilterParam("SigmaX", 0.0, 100.0, 0.1, 1.6),
                  new ImageFilterParam("SigmaY", 0.0, 100.0, 0.1, 1.6))
         { }
@@ -61,7 +61,7 @@ namespace ImageProcessingApp.Image.Filters
 
         public override string Name
         {
-            get { return GaussImageFilter.FilterName; }
+            get { return FilterName; }
         }
     }
 }

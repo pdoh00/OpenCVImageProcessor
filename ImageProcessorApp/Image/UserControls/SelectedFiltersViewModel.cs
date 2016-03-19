@@ -10,18 +10,21 @@ namespace ImageProcessingApp.Image.UserControls
 {
     public class SelectedFiltersViewModel : ReactiveObject
     {
-        ReactiveList<SelectedFilterTileViewModel> _selectedFilters = new ReactiveList<SelectedFilterTileViewModel>();
+        ReactiveList<SelectedFilterTileViewModel> _selectedFilters;
         public SelectedFiltersViewModel()
         {
+            _selectedFilters = new ReactiveList<SelectedFilterTileViewModel>();
+            _selectedFilters.ChangeTrackingEnabled = true;
             Filters = _selectedFilters.CreateDerivedCollection(x => x);
             Filters.ChangeTrackingEnabled = true;
+
+            var filtersChanged = Filters.Changed;
+            Filters.ItemChanged.Subscribe(_ => Console.WriteLine("params changed"));
             
-            var filtersChanged = Filters.Changed.Do(x => Console.WriteLine("List changed")).Select(_ => Filters.Select(t => t.Filter));
-            var parametersChanged = Filters.ItemChanged.Do(x => Console.WriteLine("param Changed"));
 
             FiltersChanged =
                 filtersChanged
-                .CombineLatest(parametersChanged, (fc, pc) => Unit.Default)
+                //.CombineLatest(parametersChanged, (fc, pc) => Unit.Default)
                 .Select(_ => Filters.Select(t => t.Filter));
 
         }

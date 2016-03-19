@@ -9,7 +9,7 @@ namespace ImageProcessingApp.Image.Filters
     public class LaplacianImageFilter : ImageFilter
     {
         public LaplacianImageFilter() :
-            this(new ImageFilterParam("KernalSize", 1.0, 21.0, 2.0, 9.0),
+            this(new ImageFilterParam("KernalSize", 1.0, 101.0, 2.0, 9.0),
                  new ImageFilterParam("Scale", 0.0, 100.0, 0.01, 0.75))
         { }
 
@@ -48,7 +48,7 @@ namespace ImageProcessingApp.Image.Filters
 
         public override string Name
         {
-            get { return LaplacianImageFilter.FilterName; }
+            get { return FilterName; }
         }
 
     }

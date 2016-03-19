@@ -11,13 +11,16 @@ namespace ImageProcessingApp.Image.UserControls
         {
             Filter = filter;
             _FilterParameters = new ReactiveList<FilterParameterTileViewModel>();
+            _FilterParameters.ChangeTrackingEnabled = true;
+            
+
+            Parameters = _FilterParameters.CreateDerivedCollection(fp => fp);
+            Parameters.ChangeTrackingEnabled = true;
+
             foreach (var fp in Filter.Parameters)
             {
                 _FilterParameters.Add(new FilterParameterTileViewModel(fp));
             }
-
-            Parameters = _FilterParameters.CreateDerivedCollection(fp => fp);
-            Parameters.ChangeTrackingEnabled = true;
 
             Name = name;
             Remove = ReactiveCommand.Create();
