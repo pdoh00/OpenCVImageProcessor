@@ -14,8 +14,10 @@ namespace ImageProcessingApp.Image.Filters
         { }
 
         public LaplacianImageFilter(ImageFilterParam kernalSize, ImageFilterParam scale) :
-            base(kernalSize, scale)
+            this(new[] { kernalSize, scale })
         { }
+
+        public LaplacianImageFilter(params ImageFilterParam[] @params) : base(FilterType.Laplacian, @params) { }
 
         public static string Description
         {

@@ -1,7 +1,5 @@
 ﻿using OpenCvSharp;
 using System.Collections.Generic;
-using System;
-using System.Linq;
 
 namespace ImageProcessingApp.Image.Filters
 {
@@ -13,6 +11,9 @@ namespace ImageProcessingApp.Image.Filters
     {
         Dictionary<string, ImageFilterParam> _params = new Dictionary<string, ImageFilterParam>();
 
+        /// <summary>
+        /// Create a GaussImageFilter with default ImageFilterParam values
+        /// </summary>
         public GaussImageFilter() :
             this(new ImageFilterParam("KernalSize", 3.0, 101.0, 2.0, 3.0),
                  new ImageFilterParam("SigmaX", 0.0, 100.0, 0.1, 1.6),
@@ -26,8 +27,10 @@ namespace ImageProcessingApp.Image.Filters
         /// <param name="sigmaX">Gaussian kernel standard deviation in X direction.</param>
         /// <param name="sigmaY">Gaussian kernel standard deviation in Y direction; if sigmaY is zero, it is set to be equal to sigmaX, if both sigmas are zeros, 
         public GaussImageFilter(ImageFilterParam kernalSize, ImageFilterParam sigmaX, ImageFilterParam sigmaY) :
-            base(kernalSize, sigmaX, sigmaY)
+            this(new[] { kernalSize, sigmaX, sigmaY })
         { }
+
+        public GaussImageFilter(params ImageFilterParam[] @params) : base(FilterType.Gauss, @params) { }
 
         public static string Description
         {
@@ -55,7 +58,7 @@ namespace ImageProcessingApp.Image.Filters
             var kernalSize = GetParameters()["KernalSize"].Value;
             var sigmaX = GetParameters()["SigmaX"].Value;
             var sigmaY = GetParameters()["SigmaY"].Value;
-            
+
             Cv2.GaussianBlur(img, img, new Size(kernalSize, kernalSize), sigmaX, sigmaY, BorderTypes.Default);
         }
 

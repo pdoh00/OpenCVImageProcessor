@@ -23,7 +23,7 @@ namespace ImageProcessingApp
             else
             {
                 var ofd = new Microsoft.Win32.OpenFileDialog();
-                ofd.Filter = "JPEG Files (*.jpg)|*.jpg|PNG Files (*.png)|*.png|All Files (*.*)|*.*";
+                ofd.Filter = "PNG Files (*.png)|*.png|JPEG Files (*.jpg)|*.jpg|All Files (*.*)|*.*";
                 var result = ofd.ShowDialog();
                 if (result.HasValue && result.Value == true)
                 {

@@ -5,63 +5,74 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 
 namespace ImageProcessingApp.Image.UserControls
 {
     public class SelectedFiltersViewModel : ReactiveObject
     {
-        ReactiveList<SelectedFilterTileViewModel> _selectedFilters;
+        Subject<IEnumerable<ImageFilter>> _FiltersChanged = new Subject<IEnumerable<ImageFilter>>();
+        Subject<Unit> _ParamChanged = new Subject<Unit>();
+        
         public SelectedFiltersViewModel()
         {
-            _selectedFilters = new ReactiveList<SelectedFilterTileViewModel>();
-            _selectedFilters.ChangeTrackingEnabled = true;
-            Filters = _selectedFilters.CreateDerivedCollection(x => x);
-            Filters.ChangeTrackingEnabled = true;
+            _Filters = new ReactiveList<SelectedFilterTileViewModel>();
+            _Filters.ChangeTrackingEnabled = true;
 
-            var filtersChanged = Filters.Changed;
-            Filters.ItemChanged.Subscribe(_ => Console.WriteLine("params changed"));
-            
+            _ParamChanged.Subscribe(_ => Console.WriteLine("Param changed"));
 
-            FiltersChanged =
-                filtersChanged
-                //.CombineLatest(parametersChanged, (fc, pc) => Unit.Default)
-                .Select(_ => Filters.Select(t => t.Filter));
+            Filters.Changed
+                .CombineLatest(_ParamChanged, (fc, pc) => Unit.Default)
+                .Subscribe(_ => _FiltersChanged.OnNext(_Filters.Select(fvm => CreateImageFilterModel(fvm))));
 
+            FiltersChanged = _FiltersChanged;
         }
 
-        public IReactiveDerivedList<SelectedFilterTileViewModel> Filters { get; private set; }
+        private static ImageFilter CreateImageFilterModel(SelectedFilterTileViewModel fvm)
+        {
+            var @params = new List<ImageFilterParam>();
+            foreach (var p in fvm.Parameters)
+            {
+                @params.Add(new ImageFilterParam(p.Name, p.Min, p.Max, p.Step, p.Default) { Value = p.Value });
+            }
+            return ImageFilterFactory.CreateFilter(fvm.FilterType, @params.ToArray());
+        }
+
+        private ReactiveList<SelectedFilterTileViewModel> _Filters;
+        public ReactiveList<SelectedFilterTileViewModel> Filters
+        {
+            get { return _Filters; }
+            set { this.RaiseAndSetIfChanged(ref _Filters, value); }
+        }
+
         public IObservable<IEnumerable<ImageFilter>> FiltersChanged { get; private set; }
 
         public void AddFilter(ImageFilter filter)
         {
             var filterVM = new SelectedFilterTileViewModel(filter.Name, filter);
-            _selectedFilters.Add(filterVM);
 
-            filterVM.Remove.Subscribe(_ => _selectedFilters.Remove(filterVM));
-
-            filterVM.MoveUp
-                .Subscribe(_ =>
+            filterVM.ParamChanged.Subscribe(_ => _ParamChanged.OnNext(Unit.Default));
+            filterVM.Remove.Subscribe(_ => _Filters.Remove(filterVM));
+            filterVM.MoveUp.Subscribe(_ =>
                 {
-                    var theList = _selectedFilters.ToList();
+                    var theList = _Filters.ToList();
                     var curIdx = theList.IndexOf(filterVM);
                     if (curIdx != theList.Count - 1)
                     {
-                        _selectedFilters.Move(curIdx, curIdx + 1);
+                        _Filters.Move(curIdx, curIdx + 1);
                     }
-
                 });
-
-            filterVM.MoveDown
-                .Subscribe(_ =>
+            filterVM.MoveDown.Subscribe(_ =>
                 {
-                    var theList = _selectedFilters.ToList();
+                    var theList = _Filters.ToList();
                     var curIdx = theList.IndexOf(filterVM);
                     if (curIdx > 0)
                     {
-                        _selectedFilters.Move(curIdx, curIdx - 1);
+                        _Filters.Move(curIdx, curIdx - 1);
                     }
                 });
+
+            Filters.Add(filterVM);
         }
-        
     }
 }

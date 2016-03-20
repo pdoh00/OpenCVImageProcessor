@@ -1,17 +1,15 @@
 ﻿using ImageProcessingApp.Image.Filters;
+using OpenCvSharp;
+using OpenCvSharp.Extensions;
 using ReactiveUI;
 using System;
 using System.Collections.Generic;
-using System.Windows.Media.Imaging;
-using System.Reactive.Linq;
-using System.Linq;
-using OpenCvSharp;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.Windows.Media;
-using OpenCvSharp.Extensions;
-using System.Windows;
+using System.IO;
+using System.Reactive.Linq;
 using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace ImageProcessingApp.Image.UserControls
 {
@@ -19,9 +17,12 @@ namespace ImageProcessingApp.Image.UserControls
     {
         public ImageViewModel(string filePath, IObservable<IEnumerable<ImageFilter>> filtersChanged)
         {
+
+
             UpdateImage(filePath, new List<ImageFilter>());
 
-            filtersChanged.Subscribe(filters =>
+            filtersChanged
+                .Subscribe(filters =>
             {
                 UpdateImage(filePath, filters);
             });
@@ -29,13 +30,16 @@ namespace ImageProcessingApp.Image.UserControls
 
         private void UpdateImage(string filePath, IEnumerable<ImageFilter> filters)
         {
-            Mat m = new Mat(filePath, ImreadModes.GrayScale);
-            foreach (var f in filters)
+            if (File.Exists(filePath))
             {
-                f.Apply(m);
+                Mat m = new Mat(filePath, ImreadModes.GrayScale);
+                foreach (var f in filters)
+                {
+                    f.Apply(m);
+                }
+
+                Image = ImgConversion.BitmapToBitmapSource(m.ToBitmap());
             }
-           
-            Image = ImgConversion.BitmapToBitmapSource(m.ToBitmap());
         }
 
         private BitmapSource _Image;
@@ -44,8 +48,6 @@ namespace ImageProcessingApp.Image.UserControls
             get { return _Image; }
             set { this.RaiseAndSetIfChanged(ref _Image, value); }
         }
-
-        
     }
 
     public static class ImgConversion

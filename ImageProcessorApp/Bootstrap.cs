@@ -1,11 +1,8 @@
-﻿using System;
-using ImageProcessingApp.Image.Filters;
+﻿using ImageProcessingApp.Image.Filters;
 using ImageProcessingApp.Image.UserControls;
-using OpenCvSharp;
 using ReactiveUI;
 using Splat;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ImageProcessingApp
 {

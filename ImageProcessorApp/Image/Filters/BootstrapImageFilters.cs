@@ -52,5 +52,23 @@ namespace ImageProcessingApp.Image.Filters
                     throw new ArgumentException("Invalid FilterType {0}", type.ToString());
             }
         }
+
+        public static ImageFilter CreateFilter(FilterType type, params ImageFilterParam[] @params)
+        {
+            switch (type)
+            {
+                case FilterType.Gauss:
+                    {
+                        return new GaussImageFilter(@params);
+                    }
+                case FilterType.Laplacian:
+                    {
+                        return new LaplacianImageFilter(@params);
+                    }
+                //Add next filter here:
+                default:
+                    throw new ArgumentException("Invalid FilterType {0}", type.ToString());
+            }
+        }
     }
 }
